@@ -23,7 +23,28 @@ console.log(resultado);
        })
        return resultado
 }
+/*
+ const [name,setName]=useState("")
+  const [des,setDes]=useState("")
+  const[file,setFile]=useState()
+const [pathImage,setPathImage]=useState ("")
+const onFile=(e)=>{
+if(e.target.files && e.target.files.length >0){
+  const file=e.target.files[0]
+  if (file.type.includes('image')) {
+    const reader=new FileReader()
+    reader.readAsDataURL(file)
 
+    reader.onload=function load() {
+      setPathImage(reader.result)
+      console.log(reader.result);
+    }
+    setFile(file)
+  }else{
+    console.log("ocurrio un error");
+  }
+}
+}*/
 
 
 export default gameImagen

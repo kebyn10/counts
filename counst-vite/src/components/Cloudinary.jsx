@@ -1,65 +1,44 @@
-import React from "react";
-import { sendImages } from "../assets/js/NewImage.js";
+
+import React, { Fragment } from "react";
 import { useState } from "react";
 
 
+function Cloudinary() {
 
-function Cloudinary({setImages,Images}) {
-  
-
-  const [name,setName]=useState("")
-  const [des,setDes]=useState("")
-  const[file,setFile]=useState()
-const [pathImage,setPathImage]=useState ("")
-
-const sendImage=(e)=>{
-  e.preventDefault()
-  console.log("jajja"+name,file);
- sendImages(name,file,des).then((result)=>{
-  console.log("el resultado es ",result);
- })
-
-}
-
-const onFile=(e)=>{
-if(e.target.files && e.target.files.length >0){
-  const file=e.target.files[0]
-  if (file.type.includes('image')) {
-    const reader=new FileReader()
-    reader.readAsDataURL(file)
-
-    reader.onload=function load() {
-      setPathImage(reader.result)
-      console.log(reader.result);
+  const [file,setFile]=useState(null)
+   const selectedHandler=(e)=>{
+setFile(e.target.files[0]);
     }
-    setFile(file)
-  }else{
-    console.log("ocurrio un error");
-  }
-}
-}
-  
-  return (
 
-<div>
-<h1 style={{color:"white"}}>hola</h1>
-<form >
-<div style={{background:"white"}}>
-<input type="file" placeholder="ingrese " onChange={onFile} />
-<img style={{with:"200px",height:"300px"}} src={pathImage} alt="image"/>
-<br/>
-<input type="text" placeholder="name" onChange={(e)=>{
-  setName(e.target.value)
-}} />
-<br/>
-<input type="text" placeholder="description" onChange={(e)=>{
-  setDes(e.target.value)
-}} />
-<br/>
-<button type="submit" style={{background:"red"}} onClick={sendImage}>enviar</button>
-</div>
-</form>
-</div>
+
+    const sendHandler=()=>{
+      if(!file){
+        alert('Debes selecionar un archivo de imagen')
+      }else{
+        const formdata=new FormData()
+        formdata.append('image',file)
+
+        fetch('http://localhost:4000/images/post',{
+          method:'POST',
+          body:formdata
+        })
+        .then(res=>res.text())
+        .then(res=> console.log(res))
+        .catch(err=>console.log(err))
+      }
+      document.getElementById('input').value=null
+      setFile(null)
+    }
+
+  return (
+<Fragment>
+  <div style={{background:"white",width: "50%",
+	height: "50px"}}>
+    <input id="input" onChange={selectedHandler} type='file'  />
+    <button onClick={sendHandler}>enviar</button>
+
+  </div>
+</Fragment>
   )
 }
 

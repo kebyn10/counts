@@ -1,11 +1,12 @@
 const Router=require('express').Router
-const storage= ("../multer.js") ;
-const multer=require("multer");
-const   pool =require('../db.js');
 const control=require('../controllers/games.controllers')
+const fileUpload=require('../multer/multer')
 
 
-const createGames=multer({storage})
+
+
+
+
 const router =Router()
 
 router.get('/games',control.getGames)
@@ -13,38 +14,9 @@ router.get('/games/:id',control.getGame)
 router.delete('/games/:id',control.deleteGames)
 router.put('/games/:id',control.updateGames)
 
-
-
-
-
-router.post('/games',createGames.single('file'),async(req,res)=>{
-    try {
+router.post('/images/post',fileUpload,(req,res)=>{
     
-       const {file,body}=req
-    
-    
-       if (file && body) {
-        const {titulo,description}=req.body
-     let  img=`http://localhost:4000/${file.filename}`
-        const [result]= await pool.query('INSERT INTO juegos(titulo,description,img) VALUES (?,?,?)',[titulo,description,img])
-       
-           res.json({ 
-               id:result.insertId,
-               titulo,
-               description,
-               img
-           })
-       }
-    
-    
-    
-        
-    } catch (error) {
-        return res.status(500).json({message:error.message});
-    }
-    })
-
-
+})
 
 
 

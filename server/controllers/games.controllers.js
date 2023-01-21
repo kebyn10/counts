@@ -2,6 +2,8 @@ const pool=require('../db.js')
 
 
 
+
+
 const control={}
 control.getGames=async(req,res)=>{
 
@@ -61,6 +63,19 @@ try {
     return res.status(500).json({message:error.message}); 
 }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 module.exports=control

@@ -1,28 +1,31 @@
 import '../assets/style/style.css'
 import { useEffect,useState } from 'react';
-import {Cerrar,NoCerrar} from './LogOut'
+import {Cerrar} from './LogOut'
 /*import { Link } from 'react-router-dom'  <Link to="/" no recarga la pagina*/
 import Cookies from 'universal-cookie';
  
 const cookies = new Cookies();
- 
+let vari=false
  function Navar() {
-  let conectados=false
  
+  
 const [cone,setCone]=useState("")
 const [linkCone,setlinkCone]=useState("")
 useEffect(()=>{
 function conectado() {
   if(cookies.get('nombre')){
       let text=cookies.get('nombre')+" "+cookies.get('apellidos')
-     setCone(value.toString(text))
+      console.log(text);
+     setCone(text)
    
      setlinkCone('#')
- conectados=true
+     vari=true
+ //setConectados=true
   }else{
     setCone("Login")
     setlinkCone('/logUser')
-   conectados=false
+    vari=false
+  // setConectados=false
   }
 
   
@@ -52,8 +55,8 @@ console.log('se ejecuto');
             <li><a href="#" target="blank">Contacto</a></li>
             
             <li  className="submenu"><a href={linkCone} target="blank">{cone}</a>
-
-                {conectados ? <Cerrar  /> :<NoCerrar /> }
+            {vari ? <Cerrar /> : ""}
+             
             </li>
            
           </ul>

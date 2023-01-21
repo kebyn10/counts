@@ -1,5 +1,5 @@
 import { cerrarSesion } from '../cookies/Usercookies';
-
+import '../assets/style/style.css'
 
 export function Cerrar() {
     return(
@@ -12,9 +12,5 @@ export function Cerrar() {
     )
 }
 
-export function NoCerrar() {
-  return(
-    <></>
-  )  
-}
+
 

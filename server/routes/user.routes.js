@@ -9,4 +9,5 @@ router.post('/user',control.createUser)
 router.delete('/user/:id',control.deleteUser)
 router.put('/user/:id',control.updateUser)
 router.post('/user/login',control.loginUser)
+
   module.exports =router
