@@ -1,7 +1,10 @@
 
-import {pool} from '../db.js'
+const pool=require('../db.js')
 
-export const getUser=async(req,res)=>{
+
+
+const control={}
+control.getUser=async(req,res)=>{
     try {
         const [result]=await pool.query("SELECT * FROM users WHERE  correo=?",[req.params.id])
         if (result.length===0) {
@@ -13,7 +16,7 @@ export const getUser=async(req,res)=>{
     }
 
 }
-export const createUser =async(req,res)=>{
+control.createUser =async(req,res)=>{
     try {
        const {nombre,apellidos,correo,contra}=req.body
        const [result]=await pool.query('INSERT INTO users(nombre,apellidos,correo,contra) VALUES (?,?,?,?)',[nombre,apellidos,correo,contra])
@@ -27,7 +30,7 @@ export const createUser =async(req,res)=>{
     }
 }
 
-export const deleteUser=async(req,res)=>{
+control.deleteUser=async(req,res)=>{
 try {
     const [result]=await pool.query('DELETE FROM users WHERE  correo=?',[req.params.id])
     if (result.affectedRows===0) {
@@ -40,7 +43,7 @@ try {
 }
 }
 
-export const updateUser=async(req,res)=>{
+control.updateUser=async(req,res)=>{
     try {
         const result=await pool.query('UPDATE users SET ? WHERE correo=?',[req.body,req.params.id])
         res.json(result)
@@ -49,7 +52,7 @@ export const updateUser=async(req,res)=>{
     }
 }
 
-export const loginUser=async (req,res)=>{
+control.loginUser=async (req,res)=>{
     try {
         const {correo,contra}=req.body
         const [result] =await pool.query('SELECT * FROM users WHERE correo=? AND contra=?',[correo,contra])
@@ -82,3 +85,7 @@ app.get('/get',(req,res)=>{
     console.log(req.cookies);
     res.clearCookie('my cookie')
 })*/
+
+
+
+module.exports=control

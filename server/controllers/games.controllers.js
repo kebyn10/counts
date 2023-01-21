@@ -1,4 +1,4 @@
-import { pool } from "../db.js"
+const pool=require('../db.js')
 
 
 
@@ -61,3 +61,6 @@ try {
     return res.status(500).json({message:error.message}); 
 }
 }
+
+
+module.exports=control

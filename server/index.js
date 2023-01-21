@@ -1,6 +1,5 @@
-const  express=require ('express')
+const  express=require('express')
 const cors=require('cors')
-
 const gamesRoutes= require('./routes/games.routes.js') 
 const  usersRoutes=require ('./routes/user.routes.js')
 const path=require('path')

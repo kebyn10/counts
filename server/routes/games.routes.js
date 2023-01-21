@@ -1,17 +1,22 @@
 const Router=require('express').Router
-
 const storage= ("../multer.js") ;
-import multer from "multer";
-const   pool =require ('../db.js');
+const multer=require("multer");
+const   pool =require('../db.js');
+const control=require('../controllers/games.controllers')
+
 
 const createGames=multer({storage})
 const router =Router()
 
-router.get('/games',getGames)
-router.get('/games/:id',getGame)
-router.delete('/games/:id',deleteGames)
-router.put('/games/:id',updateGames)
-router.put('/games/image',newImage)
+router.get('/games',control.getGames)
+router.get('/games/:id',control.getGame)
+router.delete('/games/:id',control.deleteGames)
+router.put('/games/:id',control.updateGames)
+
+
+
+
+
 router.post('/games',createGames.single('file'),async(req,res)=>{
     try {
     
@@ -50,12 +55,4 @@ router.post('/games',createGames.single('file'),async(req,res)=>{
 
 
 
-
-
-
-
-
-
-
-
-export default router
+module.exports=router

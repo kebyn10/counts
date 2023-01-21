@@ -1,6 +1,8 @@
-const createPool=require('mysql2/promise').createPool()
+const createPool=require('mysql2/promise').createPool
 
-export const pool=createPool({
+
+
+const pool=createPool({
  host:'localhost',
  port:3306,
  password:'',
