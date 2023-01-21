@@ -11,8 +11,13 @@ const app=express();
 const PORT=4000;
 app.use(cors())
 
+
+
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
+
+app.use('/',require('./routes/games.routes'))
+app.use('/user',require('./routes/user.routes'))
 app.use(gamesRoutes)
 app.use(usersRoutes)
 app.use(express.static(path.join(__dirname,'/upload')))

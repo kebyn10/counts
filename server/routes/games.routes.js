@@ -24,8 +24,8 @@ router.post('/games',createGames.single('file'),async(req,res)=>{
     
     
        if (file && body) {
-        const {titulo,description,img}=req.body
-      img=`http://localhost:4000/${file.filename}`
+        const {titulo,description}=req.body
+     let  img=`http://localhost:4000/${file.filename}`
         const [result]= await pool.query('INSERT INTO juegos(titulo,description,img) VALUES (?,?,?)',[titulo,description,img])
        
            res.json({ 

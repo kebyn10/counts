@@ -1,18 +1,24 @@
 import React from "react";
-import crl from "./NewImage";
+import { sendImages } from "../assets/js/NewImage.js";
 import { useState } from "react";
+
 
 
 function Cloudinary({setImages,Images}) {
   
 
   const [name,setName]=useState("")
+  const [des,setDes]=useState("")
   const[file,setFile]=useState()
 const [pathImage,setPathImage]=useState ("")
-const sendInmage=async(e)=>{
+
+const sendImage=(e)=>{
   e.preventDefault()
- const result= await crl.sendImages(name,file)
-console.log("el resultado es ",result);
+  console.log("jajja"+name,file);
+ sendImages(name,file,des).then((result)=>{
+  console.log("el resultado es ",result);
+ })
+
 }
 
 const onFile=(e)=>{
@@ -24,10 +30,11 @@ if(e.target.files && e.target.files.length >0){
 
     reader.onload=function load() {
       setPathImage(reader.result)
+      console.log(reader.result);
     }
     setFile(file)
   }else{
-    console.log("ocurrio un errer");
+    console.log("ocurrio un error");
   }
 }
 }
@@ -45,7 +52,11 @@ if(e.target.files && e.target.files.length >0){
   setName(e.target.value)
 }} />
 <br/>
-<button type="submit" style={{background:"red"}} onClick={sendInmage}>enviar</button>
+<input type="text" placeholder="description" onChange={(e)=>{
+  setDes(e.target.value)
+}} />
+<br/>
+<button type="submit" style={{background:"red"}} onClick={sendImage}>enviar</button>
 </div>
 </form>
 </div>
