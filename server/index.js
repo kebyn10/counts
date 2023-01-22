@@ -1,6 +1,6 @@
 const  express=require('express')
 const cors=require('cors')
-
+const path=require('path')
 
 
 
@@ -10,9 +10,11 @@ const PORT=4000;
 app.use(cors())
 
 
-app.use(express.urlencoded({extended:true}))
+
 app.use(express.json())
 
+
+app.use(express.static(path.join(__dirname,'dbImages')))
 app.use('/',require('./routes/games.routes'))
 app.use('/',require('./routes/user.routes'))
 

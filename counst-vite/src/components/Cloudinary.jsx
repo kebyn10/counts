@@ -1,11 +1,25 @@
 
+import axios from "axios";
 import React, { Fragment } from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 
 function Cloudinary() {
-
+  const [image,setImage]=useState([])
   const [file,setFile]=useState(null)
+
+
+ useEffect(()=>{
+
+
+ async function loadImage() {
+    const tt=await axios.get('http://localhost:4000/games/images')
+setImage(tt.data)
+  }
+loadImage()
+
+ })
+
    const selectedHandler=(e)=>{
 setFile(e.target.files[0]);
     }
@@ -36,7 +50,9 @@ setFile(e.target.files[0]);
 	height: "50px"}}>
     <input id="input" onChange={selectedHandler} type='file'  />
     <button onClick={sendHandler}>enviar</button>
-
+    {
+    image.map(img=>( <img src={"http://localhost:4000/"+img} key={"1"+img} />))
+}
   </div>
 </Fragment>
   )
