@@ -8,7 +8,7 @@
 
 
  export const newGameRequest=async (game)=>
- await axios.post('http://localhost:4000/games',game)
+ await axios.post('http://localhost:4000/images/post',game)
 
 
  export const newImage=async (image)=>

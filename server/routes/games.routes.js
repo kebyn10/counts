@@ -20,16 +20,17 @@ router.put('/games/:id',control.updateGames)
 
 
 router.post('/images/post',fileUpload,async(req,res)=>{
-  //  const {titulo,description}=req.body
+
   try{
   const type=req.file.mimetype
   const name=req.file.originalname
+  const {titulo,description}=req.body
     const data=fs.readFileSync(path.join(__dirname,'../upload/' +req.file.filename))
-    const [result]=await pool.query('INSERT INTO juegos(titulo,description,img) VALUES (?,?,?)',[name,type,data])
+    const [result]=await pool.query('INSERT INTO juegos(titulo,description,img) VALUES (?,?,?)',[titulo,description,data])
        res.json({
         id:result.insertId,
-        name,
-        type
+       titulo,
+        description
     }) 
 } catch (error) {
     return res.status(500).json({message:error.message});
