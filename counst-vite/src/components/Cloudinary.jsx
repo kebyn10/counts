@@ -1,31 +1,31 @@
 
-import axios from "axios";
+
 import React, { Fragment } from "react";
 import { useState,useEffect } from "react";
-
+import { cargador } from "../assets/js/cargadorImagenes";
 
 function Cloudinary() {
-  const [image,setImage]=useState([])
   const [file,setFile]=useState(null)
-
+  const [games,setGames]=useState([])
 
  useEffect(()=>{
 
-
- async function loadImage() {
-    const tt=await axios.get('http://localhost:4000/games/images')
-setImage(tt.data)
+ async function termina() {
+   const resp=await cargador()
+   console.log("gg"+resp);
+   setGames(resp)
   }
-loadImage()
 
- })
+  termina()
+  
+
+ 
+ },[])
 
    const selectedHandler=(e)=>{
 setFile(e.target.files[0]);
     }
-
-
-    const sendHandler=()=>{
+const sendHandler=()=>{
       if(!file){
         alert('Debes selecionar un archivo de imagen')
       }else{
@@ -50,10 +50,17 @@ setFile(e.target.files[0]);
 	height: "50px"}}>
     <input id="input" onChange={selectedHandler} type='file'  />
     <button onClick={sendHandler}>enviar</button>
-    {
-    image.map(img=>( <img src={"http://localhost:4000/"+img} key={"1"+img} />))
-}
-  </div>
+  {games.map(game=>(<div style={{background:"yellow"}}key={game.id} >
+    <h3>{game.titulo} </h3>
+    <img src={"http://localhost:4000/"+game.img}  />
+    </div>))}
+
+
+   </div> 
+   
+
+
+
 </Fragment>
   )
 }
